@@ -8,6 +8,7 @@ class Deck
 {
     private string $id;
     private string $name;
+    private bool $isStandard;
     /** @var Card[] */
     private array $cards;
     
@@ -15,6 +16,7 @@ class Deck
     {
         $this->id = $id;
         $this->name = $name;
+        $this->isStandard = true;
         $this->cards = [];
     }
 
@@ -28,8 +30,17 @@ class Deck
         return $this->name;
     }
 
+    public function isStandard(): bool
+    {
+        return $this->isStandard;
+    }
+
     public function add(Card $card): void
     {
+        if ($this->isStandard && ! $card->isStandard()) {
+            $this->isStandard = false;
+        }
+
         $this->cards[] = $card;
     }
 
