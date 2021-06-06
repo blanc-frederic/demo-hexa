@@ -17,11 +17,6 @@ class Set
         $this->isStandard = $isStandard;
     }
 
-    public function getCode(): string
-    {
-        return $this->code;
-    }
-
     public function getName(): string
     {
         return $this->name;

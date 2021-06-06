@@ -9,6 +9,8 @@ use Domain\Entity\Deck;
 use Domain\Entity\Set;
 use Domain\Deck\AddCard;
 use PHPUnit\Framework\TestCase;
+use Tests\Domain\Repository\MemoryCardRepository;
+use Tests\Domain\Repository\MemoryDeckRepository;
 
 class AddCardTest extends TestCase
 {

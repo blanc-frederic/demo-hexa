@@ -27,8 +27,13 @@ class Card
         return $this->name;
     }
 
-    public function getSet(): Set
+    public function getSetName(): string
     {
-        return $this->set;
+        return $this->set->getName();
+    }
+
+    public function isStandard(): bool
+    {
+        return $this->set->isStandard();
     }
 }

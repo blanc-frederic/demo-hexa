@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Deck;
+namespace Tests\Domain\Repository;
 
 use Domain\Contract\DeckRepository;
 use Domain\Entity\Deck;
