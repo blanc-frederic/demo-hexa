@@ -20,9 +20,9 @@ class NewDeckTest extends TestCase
         $creator = new NewDeck($generator, $repository);
 
         $creator->create('Test deck');
-        
+
         $deck = $repository->get('223addf77c');
         $this->assertSame('Test deck', $deck->getName());
-        $this->assertCount(0, $deck->getCards());
+        $this->assertSame(0, $deck->getCardsCount());
     }
 }

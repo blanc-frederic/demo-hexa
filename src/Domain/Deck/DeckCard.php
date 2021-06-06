@@ -7,7 +7,7 @@ namespace Domain\Deck;
 use Domain\Contract\CardRepository;
 use Domain\Contract\DeckRepository;
 
-class AddCard
+class DeckCard
 {
     private DeckRepository $deckRepository;
     private CardRepository $cardRepository;
@@ -24,6 +24,16 @@ class AddCard
         $card = $this->cardRepository->get($cardNumber);
 
         $deck->add($card);
+
+        $this->deckRepository->save($deck);
+    }
+
+    public function remove(string $deckId, int $cardNumber): void
+    {
+        $deck = $this->deckRepository->get($deckId);
+        $card = $this->cardRepository->get($cardNumber);
+
+        $deck->remove($card);
 
         $this->deckRepository->save($deck);
     }

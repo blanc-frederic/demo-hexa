@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Repository;
 
+use Domain\Contract\DeckFinder;
 use Domain\Contract\DeckRepository;
 use Domain\Entity\Deck;
 use RuntimeException;
 
-class MemoryDeckRepository implements DeckRepository
+class MemoryDeckRepository implements DeckRepository, DeckFinder
 {
     /** @var Deck[] */
     private array $decks;
@@ -33,5 +34,11 @@ class MemoryDeckRepository implements DeckRepository
     public function save(Deck $deck): void
     {
         $this->decks[$deck->getId()] = $deck;
+    }
+
+    /** @return Deck[] */
+    public function findAll(): array
+    {
+        return $this->decks;
     }
 }
