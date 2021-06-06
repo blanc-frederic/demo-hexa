@@ -1,5 +1,7 @@
 {
     "type": "project",
+    "name": "blanc-frederic/demo-hexa",
+    "description": "Exemple d'implémentation de l'architecture hexagonale avec Symfony",
     "license": "proprietary",
     "minimum-stability": "stable",
     "prefer-stable": true,
