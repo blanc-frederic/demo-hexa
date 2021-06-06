@@ -14,13 +14,16 @@
         "symfony/flex": "^1.3.1",
         "symfony/framework-bundle": "5.3.*",
         "symfony/runtime": "5.3.*",
-        "symfony/yaml": "5.3.*"
+        "symfony/yaml": "5.3.*",
+        "thecodingmachine/safe": "^1.3"
     },
     "require-dev": {
+        "phpstan/phpstan": "^0.12.88",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "^5.3",
         "symfony/css-selector": "^5.3",
-        "symfony/phpunit-bridge": "^5.3"
+        "symfony/phpunit-bridge": "^5.3",
+        "thecodingmachine/phpstan-safe-rule": "^1.0"
     },
     "config": {
         "optimize-autoloader": true,

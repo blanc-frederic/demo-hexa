@@ -1,0 +1,7 @@
+parameters:
+    level : max
+    paths:
+        - src
+        - tests
+includes:
+    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
