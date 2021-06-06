@@ -10,4 +10,7 @@ interface CardFinder
 {
     /** @return Card[] */
     public function findAll(): array;
+
+    /** @return Card[] */
+    public function findStandard(): array;
 }

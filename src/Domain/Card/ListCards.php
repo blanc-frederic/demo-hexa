@@ -21,4 +21,10 @@ class ListCards
     {
         return $this->finder->findAll();
     }
+
+    /** @return Card[] */
+    public function listStandard(): array
+    {
+        return $this->finder->findStandard();
+    }
 }

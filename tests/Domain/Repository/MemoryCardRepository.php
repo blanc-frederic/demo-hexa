@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Domain\Repository;
 
+use Domain\Contract\CardFinder;
 use Domain\Contract\CardRepository;
 use Domain\Entity\Card;
 use RuntimeException;
 
-class MemoryCardRepository implements CardRepository
+class MemoryCardRepository implements CardRepository, CardFinder
 {
     /** @var Card[] */
     private array $cards;
@@ -28,5 +29,17 @@ class MemoryCardRepository implements CardRepository
         }
 
         return $this->cards[$number];
+    }
+
+    /** @return Card[] */
+    public function findAll(): array
+    {
+        return $this->cards;
+    }
+
+    /** @return Card[] */
+    public function findStandard(): array
+    {
+        return array_filter($this->cards, fn ($card) => $card->isStandard());
     }
 }
