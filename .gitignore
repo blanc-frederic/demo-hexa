@@ -13,3 +13,7 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> deptrac ###
+.deptrac.cache
+###< deptrac ###
