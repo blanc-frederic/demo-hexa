@@ -1,3 +1,20 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+homepage:
+  path: /
+  controller: Infrastructure\Symfony\Controller\Decks::index
+
+decks:
+  path: /
+  controller: Infrastructure\Symfony\Controller\Decks::index
+
+create_deck:
+  methods: POST
+  path: /new
+  controller: Infrastructure\Symfony\Controller\CreateDeck::create
+
+cards:
+  path: /cards
+  controller: Infrastructure\Symfony\Controller\Cards::index

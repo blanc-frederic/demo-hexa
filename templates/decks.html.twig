@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Decks list{% endblock %}
+
+{% block body %}
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Cards</th>
+            <th scope="col">Standard</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for deck in decks %}
+        <tr>
+            <td>{{ deck.name }}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<h2>New deck</h2>
+<form action="{{ path('create_deck') }}" method="post">
+  <div class="mb-3">
+    <label for="deckName" class="form-label">Deck name</label>
+    <input type="text" class="form-control" id="deckName" name="name">
+  </div>
+  <button type="submit" class="btn btn-primary">Create</button>
+</form>
+{% endblock %}

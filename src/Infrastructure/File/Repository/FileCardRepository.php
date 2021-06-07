@@ -42,12 +42,16 @@ class FileCardRepository implements CardRepository, CardFinder
     /** @return Card[] */
     public function findAll(): array
     {
+        $this->loadCards();
+
         return $this->cards;
     }
 
     /** @return Card[] */
     public function findStandard(): array
     {
+        $this->loadCards();
+
         return array_filter($this->cards, fn ($card) => $card->isStandard());
     }
 

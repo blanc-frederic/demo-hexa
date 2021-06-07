@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cards list{% endblock %}
+
+{% block body %}
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Set</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for card in cards %}
+        <tr>
+            <td>{{ card.number }}</td>
+            <td>{{ card.name }}</td>
+            <td>{{ card.set }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
