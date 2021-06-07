@@ -13,7 +13,7 @@ use Tests\Domain\Repository\MemoryDeckRepository;
 
 class ListDeckCardsTest extends TestCase
 {
-    public function testListCards(): void
+    public function testGetDeck(): void
     {
         $set = new Set('test', 'Test set');
         $card1 = new Card(1, 'First card', $set);
@@ -27,8 +27,8 @@ class ListDeckCardsTest extends TestCase
         $repository = new MemoryDeckRepository([$deck]);
         $lister = new ListDeckCards($repository);
 
-        $list = $lister->listCards('414d');
+        $listedDeck = $lister->getDeck('414d');
 
-        $this->assertCount(3, $list);
+        $this->assertSame($deck, $listedDeck);
     }
 }

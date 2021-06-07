@@ -7,7 +7,6 @@ namespace Domain\Entity;
 use Domain\Deck\DeckComponent;
 use OutOfBoundsException;
 use OverflowException;
-use UnderflowException;
 
 class Deck
 {
@@ -47,11 +46,11 @@ class Deck
         $number = $card->getNumber();
 
         if (isset($this->components[$number])) {
-            if ($this->components[$number]->number === 2) {
+            if ($this->components[$number]->count === 2) {
                 throw new OverflowException('Deck can only contain 2 copies of the same card');
             }
 
-            $this->components[$number]->number++;
+            $this->components[$number]->count++;
             $this->count++;
             return;
         }
@@ -72,14 +71,20 @@ class Deck
             throw new OutOfBoundsException('Card not found in this deck');
         }
 
-        if ($this->components[$number]->number === 1) {
+        if ($this->components[$number]->count === 1) {
             unset($this->components[$number]);
             $this->count--;
             return;
         }
 
-        $this->components[$number]->number--;
+        $this->components[$number]->count--;
         $this->count--;
+    }
+
+    /** @return DeckComponent[] */
+    public function getComponents(): array
+    {
+        return array_values($this->components);
     }
 
     public function isStandard(): bool
@@ -99,7 +104,7 @@ class Deck
             $this->components,
             fn ($cardList, $component) => array_merge(
                 $cardList,
-                array_fill(0, $component->number, $component->getCard())
+                array_fill(0, $component->count, $component->getCard())
             ),
             []
         );

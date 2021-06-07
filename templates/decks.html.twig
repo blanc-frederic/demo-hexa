@@ -4,30 +4,36 @@
 
 {% block body %}
 <table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Cards</th>
-            <th scope="col">Standard</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for deck in decks %}
-        <tr>
-            <td>{{ deck.name }}</td>
-            <td></td>
-            <td></td>
-        </tr>
-    {% endfor %}
-    </tbody>
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Cards</th>
+      <th scope="col">Standard</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for deck in decks %}
+    <tr>
+      <td><a href="{{ path('edit_deck', {id: deck.id }) }}">{{ deck.name }}</a></td>
+      <td>{{ deck.cardsCount }}</td>
+      <td>{{ deck.isStandard ? 'Yes' : 'No' }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
 </table>
 
 <h2>New deck</h2>
 <form action="{{ path('create_deck') }}" method="post">
-  <div class="mb-3">
-    <label for="deckName" class="form-label">Deck name</label>
-    <input type="text" class="form-control" id="deckName" name="name">
+  <div class="row g-3 align-items-center">
+    <div class="col-auto">
+      <label for="deckName" class="form-label">Deck name</label>
+    </div>
+    <div class="col-auto">
+      <input type="text" class="form-control" id="deckName" name="name">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">Create</button>
 </form>
 {% endblock %}

@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Infrastructure\File\Fixtures;
 
+use Infrastructure\Symfony\Contract\FixturesGeneratorInterface;
+
 use function Safe\file_put_contents;
 use function Safe\json_encode;
 use function Safe\mkdir;
 
-class FileFixtures
+class FileFixtures implements FixturesGeneratorInterface
 {
     private string $path;
 
-    public function __construct(string $path) {
+    public function __construct(string $path)
+    {
         $this->path = $path;
     }
 

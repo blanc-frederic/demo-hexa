@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Infrastructure\Symfony\Command;
 
-use Infrastructure\File\Fixtures\FileFixtures;
+use Infrastructure\Symfony\Contract\FixturesGeneratorInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class FixturesLoad extends Command
+class FixturesLoadCommand extends Command
 {
-    private FileFixtures $generator;
+    private FixturesGeneratorInterface $generator;
 
-    public function __construct(FileFixtures $generator)
+    public function __construct(FixturesGeneratorInterface $generator)
     {
         $this->generator = $generator;
-        parent::__construct('file:fixtures:load');
+        parent::__construct('app:fixtures:load');
     }
 
     protected function configure(): void

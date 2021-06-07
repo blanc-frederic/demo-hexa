@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateDeck extends AbstractController
+class CreateDeckController extends AbstractController
 {
     private NewDeck $creator;
 
@@ -20,9 +20,11 @@ class CreateDeck extends AbstractController
 
     public function create(Request $request): Response
     {
-        $name = $request->request->get('name');
+        $name = (string) $request->request->get('name');
 
-        $this->creator->create($name);
+        if ($name) {
+            $this->creator->create($name);
+        }
 
         return $this->redirectToRoute('decks');
     }

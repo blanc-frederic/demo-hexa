@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Domain\Deck;
 
 use Domain\Contract\DeckRepository;
-use Domain\Entity\Card;
+use Domain\Entity\Deck;
 
 class ListDeckCards
 {
@@ -16,11 +16,8 @@ class ListDeckCards
         $this->repository = $repository;
     }
 
-    /** @return Card[] */
-    public function listCards(string $deckId): array
+    public function getDeck(string $id): Deck
     {
-        $deck = $this->repository->get($deckId);
-
-        return $deck->getCards();
+        return $this->repository->get($id);
     }
 }

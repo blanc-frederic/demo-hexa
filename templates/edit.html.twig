@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit deck {{ deck.name }}{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row align-items-start">
+    <div class="col">
+      <table class="table">
+        <thead><tr><th colspan="3">Deck content</th></tr></thead>
+        <tbody>
+          {% for component in components %}
+          <tr>
+            <td>{{ component.count }}</td><td>{{ component.name }}</td><td>
+              <form action="{{ path('remove_card', {deckId: deck.id}) }}" method="post">
+                <input type="hidden" name="number" value="{{ component.number }}" />
+                <button type="submit" class="btn btn-outline-secondary">Remove</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p>Total : {{ deck.cardsCount }} / 30 cards</p>
+    </div>
+    <div class="col">
+      <table class="table">
+        <thead><tr><th colspan="3">All cards</th></tr></thead>
+        <tbody>
+          {% for card in cards %}
+          <tr>
+            <td>{{ card.name }}</td><td>{{ card.set }}</td><td>
+              <form action="{{ path('add_card', {deckId: deck.id}) }}" method="post">
+                <input type="hidden" name="number" value="{{ card.number }}" />
+                <button type="submit" class="btn btn-outline-secondary">Add</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

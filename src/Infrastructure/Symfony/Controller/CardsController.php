@@ -9,7 +9,7 @@ use Infrastructure\Symfony\ViewModel\Card;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class Cards extends AbstractController
+class CardsController extends AbstractController
 {
     private ListCards $lister;
 

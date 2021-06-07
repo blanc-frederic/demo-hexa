@@ -1,0 +1,11 @@
+{% if app.request.hasPreviousSession %}
+{% for category, messages in app.flashes %}
+<div class="container">
+  {% for message in messages %}
+  <div class="alert alert-{{ category != 'error' ? category : 'danger' }}">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
+{% endif %}

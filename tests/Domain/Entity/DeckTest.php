@@ -52,6 +52,18 @@ class DeckTest extends TestCase
         $this->assertFalse($deck->isStandard());
     }
 
+    public function testComponents(): void
+    {
+        $deck = new Deck('aff12', 'Test deck');
+        $card = $this->createStandardCard();
+
+        $deck->add($card);
+        $components = $deck->getComponents();
+
+        $this->assertSame($card->getNumber(), $components[0]->getCardNumber());
+        $this->assertSame($card->getName(), $components[0]->getCardName());
+    }
+
     public function testMax30Cards(): void
     {
         $deck = new Deck('aff12', 'Test deck');
@@ -63,6 +75,7 @@ class DeckTest extends TestCase
         }
 
         $this->assertCount(30, $deck->getCards());
+        $this->assertCount(15, $deck->getComponents());
 
         $this->expectException(OverflowException::class);
         $deck->add($this->createStandardCard());

@@ -9,7 +9,7 @@ use Infrastructure\Symfony\ViewModel\Deck;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class Decks extends AbstractController
+class DecksController extends AbstractController
 {
     private ListDecks $lister;
 

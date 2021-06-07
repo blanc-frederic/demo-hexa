@@ -8,7 +8,7 @@ use Domain\Entity\Card;
 
 class DeckComponent
 {
-    public int $number = 1;
+    public int $count = 1;
     private Card $card;
 
     public function __construct(Card $card)
@@ -19,5 +19,15 @@ class DeckComponent
     public function getCard(): Card
     {
         return $this->card;
+    }
+
+    public function getCardNumber(): int
+    {
+        return $this->card->getNumber();
+    }
+
+    public function getCardName(): string
+    {
+        return $this->card->getName();
     }
 }
