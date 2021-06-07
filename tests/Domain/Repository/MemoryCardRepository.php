@@ -7,7 +7,7 @@ namespace Tests\Domain\Repository;
 use Domain\Contract\CardFinder;
 use Domain\Contract\CardRepository;
 use Domain\Entity\Card;
-use RuntimeException;
+use OutOfBoundsException;
 
 class MemoryCardRepository implements CardRepository, CardFinder
 {
@@ -25,7 +25,7 @@ class MemoryCardRepository implements CardRepository, CardFinder
     public function get(int $number): Card
     {
         if (! isset($this->cards[$number])) {
-            throw new RuntimeException('No card found for number #' . $number);
+            throw new OutOfBoundsException('No card found for number #' . $number);
         }
 
         return $this->cards[$number];

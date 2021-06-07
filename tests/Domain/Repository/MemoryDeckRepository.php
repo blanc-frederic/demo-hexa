@@ -7,7 +7,7 @@ namespace Tests\Domain\Repository;
 use Domain\Contract\DeckFinder;
 use Domain\Contract\DeckRepository;
 use Domain\Entity\Deck;
-use RuntimeException;
+use OutOfBoundsException;
 
 class MemoryDeckRepository implements DeckRepository, DeckFinder
 {
@@ -25,7 +25,7 @@ class MemoryDeckRepository implements DeckRepository, DeckFinder
     public function get(string $id): Deck
     {
         if (! isset($this->decks[$id])) {
-            throw new RuntimeException('No deck found for this id : ' . $id);
+            throw new OutOfBoundsException('No deck found for this id : ' . $id);
         }
 
         return $this->decks[$id];

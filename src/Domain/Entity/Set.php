@@ -9,7 +9,7 @@ class Set
     private string $code;
     private string $name;
     private bool $isStandard;
-    
+
     public function __construct(string $code, string $name, bool $isStandard = true)
     {
         $this->code = $code;
