@@ -41,7 +41,7 @@ test: vendor
 
 coverage: ## Run all tests with code coverage
 coverage: vendor
-	$(EXEC_VENDOR)/phpunit --testsuite full --coverage-html var/report
+	XDEBUG_MODE=coverage $(EXEC_VENDOR)/phpunit --testsuite full --coverage-html var/report
 
 .PHONY: test coverage
 
