@@ -16,7 +16,7 @@ class DeckComponent
     private int $count;
     private Card $card;
 
-    public static function createFor(Card $card)
+    public static function createFor(Card $card): self
     {
         return new self($card);
     }

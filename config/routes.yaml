@@ -12,7 +12,6 @@ create_deck:
   controller: Infrastructure\Symfony\Controller\CreateDeckController::create
 
 edit_deck:
-  methods: GET
   path: /edit/{id}
   controller: Infrastructure\Symfony\Controller\EditDeckController::edit
 
