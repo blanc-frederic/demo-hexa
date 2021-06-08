@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Deck;
+namespace Tests\Domain\Deckbuilding;
 
-use Domain\Deck\ListDecks;
+use Domain\Deckbuilding\ListDecks;
 use Domain\Entity\Deck;
 use PHPUnit\Framework\TestCase;
 use Tests\Domain\Repository\MemoryDeckRepository;

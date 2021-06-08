@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Deck;
+namespace Tests\Domain\Deckbuilding;
 
 use Domain\Contract\IdentifierGenerator;
-use Domain\Deck\NewDeck;
+use Domain\Deckbuilding\NewDeck;
 use PHPUnit\Framework\TestCase;
 use Tests\Domain\Repository\MemoryDeckRepository;
 

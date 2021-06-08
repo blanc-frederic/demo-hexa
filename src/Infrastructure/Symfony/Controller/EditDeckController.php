@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Infrastructure\Symfony\Controller;
 
-use Domain\Card\ListCards;
-use Domain\Deck\ListDeckCards;
+use Domain\Catalog\ListCards;
+use Domain\Deckbuilding\ListDeckCards;
 use Infrastructure\Symfony\ViewModel\Card;
 use Infrastructure\Symfony\ViewModel\Deck;
 use Infrastructure\Symfony\ViewModel\DeckComponent;

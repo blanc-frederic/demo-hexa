@@ -19,12 +19,12 @@ edit_deck:
 add_card:
   methods: POST
   path: /edit/{deckId}/add
-  controller: Infrastructure\Symfony\Controller\DeckCardsController::add
+  controller: Infrastructure\Symfony\Controller\ChooseCardsController::add
 
 remove_card:
   methods: POST
   path: /edit/{deckId}/remove
-  controller: Infrastructure\Symfony\Controller\DeckCardsController::remove
+  controller: Infrastructure\Symfony\Controller\ChooseCardsController::remove
 
 cards:
   path: /cards

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Deck;
+namespace Tests\Domain\Deckbuilding;
 
 use Domain\Entity\Card;
 use Domain\Entity\Deck;
 use Domain\Entity\Set;
-use Domain\Deck\DeckCard;
+use Domain\Deckbuilding\ChooseCards;
 use PHPUnit\Framework\TestCase;
 use Tests\Domain\Repository\MemoryCardRepository;
 use Tests\Domain\Repository\MemoryDeckRepository;
 
-class DeckCardTest extends TestCase
+class ChooseCardsTest extends TestCase
 {
     public function testAddCard(): void
     {
@@ -23,7 +23,7 @@ class DeckCardTest extends TestCase
             new Card(11, 'Sample', new Set('test', 'Test Set'))
         ]);
 
-        $actor = new DeckCard($deckRepository, $cardRepository);
+        $actor = new ChooseCards($deckRepository, $cardRepository);
         $actor->add('1dd32', 11);
 
         $deck = $deckRepository->get('1dd32');
@@ -41,7 +41,7 @@ class DeckCardTest extends TestCase
             new Card(11, 'Sample', new Set('test', 'Test Set'))
         ]);
 
-        $actor = new DeckCard($deckRepository, $cardRepository);
+        $actor = new ChooseCards($deckRepository, $cardRepository);
         $actor->add('1dd32', 11);
         $actor->remove('1dd32', 11);
 

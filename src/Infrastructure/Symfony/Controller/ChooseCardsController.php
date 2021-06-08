@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Infrastructure\Symfony\Controller;
 
-use Domain\Deck\DeckCard;
+use Domain\Deckbuilding\ChooseCards;
 use OutOfBoundsException;
 use OverflowException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DeckCardsController extends AbstractController
+class ChooseCardsController extends AbstractController
 {
-    private DeckCard $deckCards;
+    private ChooseCards $chooseCards;
 
-    public function __construct(DeckCard $deckCards)
+    public function __construct(ChooseCards $chooseCards)
     {
-        $this->deckCards = $deckCards;
+        $this->chooseCards = $chooseCards;
     }
 
     public function add(string $deckId, Request $request): Response
@@ -26,7 +26,7 @@ class DeckCardsController extends AbstractController
 
         if ($cardNumber) {
             try {
-                $this->deckCards->add($deckId, $cardNumber);
+                $this->chooseCards->add($deckId, $cardNumber);
             } catch (OverflowException $exception) {
                 $this->addFlash('error', $exception->getMessage());
             } catch (OutOfBoundsException $exception) {
@@ -43,7 +43,7 @@ class DeckCardsController extends AbstractController
 
         if ($cardNumber) {
             try {
-                $this->deckCards->remove($deckId, $cardNumber);
+                $this->chooseCards->remove($deckId, $cardNumber);
             } catch (OutOfBoundsException $exception) {
                 $this->addFlash('error', $exception->getMessage());
             }

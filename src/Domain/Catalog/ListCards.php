@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Card;
+namespace Domain\Catalog;
 
 use Domain\Contract\CardFinder;
 use Domain\Entity\Card;

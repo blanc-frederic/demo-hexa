@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Infrastructure\Symfony\Controller;
 
-use Domain\Deck\NewDeck;
+use Domain\Deckbuilding\NewDeck;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

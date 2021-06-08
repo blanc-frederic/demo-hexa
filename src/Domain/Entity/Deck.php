@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Entity;
 
-use Domain\Deck\DeckComponent;
+use Domain\Deckbuilding\DeckComponent;
 use OutOfBoundsException;
 use OverflowException;
 

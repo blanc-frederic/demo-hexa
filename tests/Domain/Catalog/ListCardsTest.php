@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Card;
+namespace Tests\Catalog\Card;
 
-use Domain\Card\ListCards;
+use Domain\Catalog\ListCards;
 use Domain\Contract\CardFinder;
 use Domain\Entity\Card;
 use Domain\Entity\Set;

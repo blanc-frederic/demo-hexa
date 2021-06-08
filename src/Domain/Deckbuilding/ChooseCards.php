@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Domain\Deck;
+namespace Domain\Deckbuilding;
 
 use Domain\Contract\CardRepository;
 use Domain\Contract\DeckRepository;
 
-class DeckCard
+class ChooseCards
 {
     private DeckRepository $deckRepository;
     private CardRepository $cardRepository;

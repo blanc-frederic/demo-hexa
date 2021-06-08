@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Infrastructure\Symfony\Controller;
 
-use Domain\Deck\ListDecks;
+use Domain\Deckbuilding\ListDecks;
 use Infrastructure\Symfony\ViewModel\Deck;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

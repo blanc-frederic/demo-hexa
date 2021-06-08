@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Deck;
+namespace Tests\Domain\Deckbuilding;
 
-use Domain\Deck\ListDeckCards;
+use Domain\Deckbuilding\ListDeckCards;
 use Domain\Entity\Card;
 use Domain\Entity\Deck;
 use Domain\Entity\Set;

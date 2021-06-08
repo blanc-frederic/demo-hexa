@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Deck;
+namespace Domain\Deckbuilding;
 
 use Domain\Contract\DeckFinder;
 use Domain\Entity\Deck;

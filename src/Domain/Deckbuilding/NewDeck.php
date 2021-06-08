@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Deck;
+namespace Domain\Deckbuilding;
 
 use Domain\Contract\DeckRepository;
 use Domain\Contract\IdentifierGenerator;

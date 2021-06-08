@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Infrastructure\Symfony\Controller;
 
-use Domain\Card\ListCards;
+use Domain\Catalog\ListCards;
 use Infrastructure\Symfony\ViewModel\Card;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
