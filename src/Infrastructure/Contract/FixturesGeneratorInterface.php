@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Symfony\Contract;
+namespace Infrastructure\Contract;
 
 interface FixturesGeneratorInterface
 {

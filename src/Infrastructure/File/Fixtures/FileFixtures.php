@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Infrastructure\File\Fixtures;
 
-use Infrastructure\Symfony\Contract\FixturesGeneratorInterface;
+use Infrastructure\Contract\FixturesGeneratorInterface;
 
 use function Safe\file_put_contents;
 use function Safe\json_encode;
