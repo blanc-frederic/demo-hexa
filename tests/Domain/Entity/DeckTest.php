@@ -64,23 +64,6 @@ class DeckTest extends TestCase
         $this->assertSame($card->getName(), $components[0]->getCardName());
     }
 
-    public function testMax30Cards(): void
-    {
-        $deck = new Deck('aff12', 'Test deck');
-
-        for ($i = 0; $i < 15; $i++) {
-            $card = $this->createStandardCard();
-            $deck->add($card);
-            $deck->add($card);
-        }
-
-        $this->assertCount(30, $deck->getCards());
-        $this->assertCount(15, $deck->getComponents());
-
-        $this->expectException(OverflowException::class);
-        $deck->add($this->createStandardCard());
-    }
-
     public function testMax2Copies(): void
     {
         $deck = new Deck('aff12', 'Test deck');

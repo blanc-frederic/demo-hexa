@@ -8,7 +8,7 @@ use Domain\Contract\DeckRepository;
 use Domain\Contract\IdentifierGenerator;
 use Domain\Entity\Deck;
 
-class NewDeck
+class CreateDeck
 {
     private IdentifierGenerator $generator;
     private DeckRepository $repository;

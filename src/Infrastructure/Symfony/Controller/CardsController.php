@@ -29,6 +29,6 @@ class CardsController extends AbstractController
             $this->lister->list()
         );
 
-        return $this->render('cards.html.twig', ['cards' => $cards]);
+        return $this->render('catalog/cards.html.twig', ['cards' => $cards]);
     }
 }

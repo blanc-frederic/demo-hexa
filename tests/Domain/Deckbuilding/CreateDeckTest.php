@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Tests\Domain\Deckbuilding;
 
 use Domain\Contract\IdentifierGenerator;
-use Domain\Deckbuilding\NewDeck;
+use Domain\Deckbuilding\CreateDeck;
 use PHPUnit\Framework\TestCase;
 use Tests\Domain\Repository\MemoryDeckRepository;
 
-class NewDeckTest extends TestCase
+class CreateDeckTest extends TestCase
 {
     public function testCreate(): void
     {
@@ -17,7 +17,7 @@ class NewDeckTest extends TestCase
         $generator->method('generate')->willReturn('223addf77c');
         $repository = new MemoryDeckRepository();
 
-        $creator = new NewDeck($generator, $repository);
+        $creator = new CreateDeck($generator, $repository);
 
         $creator->create('Test deck');
 

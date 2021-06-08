@@ -35,7 +35,7 @@ class EditDeckController extends AbstractController
         );
 
         $viewComponents = array_map(fn ($component) => new DeckComponent(
-            $component->count,
+            $component->getCount(),
             $component->getCardNumber(),
             $component->getCardName()
         ), $deck->getComponents());
@@ -46,7 +46,7 @@ class EditDeckController extends AbstractController
             $card->getSetName()
         ), $this->listCards->list());
 
-        return $this->render('edit.html.twig', [
+        return $this->render('deckbuilding/edit.html.twig', [
             'deck' => $viewDeck,
             'components' => $viewComponents,
             'cards' => $viewCards,

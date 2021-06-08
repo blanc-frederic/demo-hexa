@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Infrastructure\Symfony\Controller;
 
-use Domain\Deckbuilding\NewDeck;
+use Domain\Deckbuilding\CreateDeck;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CreateDeckController extends AbstractController
 {
-    private NewDeck $creator;
+    private CreateDeck $creator;
 
-    public function __construct(NewDeck $creator)
+    public function __construct(CreateDeck $creator)
     {
         $this->creator = $creator;
     }

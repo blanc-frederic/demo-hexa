@@ -30,6 +30,6 @@ class DecksController extends AbstractController
             $this->lister->list()
         );
 
-        return $this->render('decks.html.twig', ['decks' => $decks]);
+        return $this->render('deckbuilding/decks.html.twig', ['decks' => $decks]);
     }
 }
