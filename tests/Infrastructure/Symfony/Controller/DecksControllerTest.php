@@ -16,5 +16,6 @@ class DecksControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Decks list');
+        $this->assertSelectorTextContains('td', 'Test deck');
     }
 }
