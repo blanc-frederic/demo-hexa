@@ -12,18 +12,14 @@ create_deck:
   controller: Infrastructure\Symfony\Controller\CreateDeckController::create
 
 edit_deck:
-  path: /edit/{id}
+  methods: GET
+  path: /deck/{id}
   controller: Infrastructure\Symfony\Controller\EditDeckController::edit
 
-add_card:
+choose_card:
   methods: POST
-  path: /edit/{deckId}/add
-  controller: Infrastructure\Symfony\Controller\ChooseCardsController::add
-
-remove_card:
-  methods: POST
-  path: /edit/{deckId}/remove
-  controller: Infrastructure\Symfony\Controller\ChooseCardsController::remove
+  path: /deck/{deckId}
+  controller: Infrastructure\Symfony\Controller\ChooseCardsController::choose
 
 cards:
   path: /cards

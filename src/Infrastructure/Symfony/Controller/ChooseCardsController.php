@@ -10,6 +10,7 @@ use OverflowException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use UnderflowException;
 
 class ChooseCardsController extends AbstractController
 {
@@ -20,31 +21,19 @@ class ChooseCardsController extends AbstractController
         $this->chooseCards = $chooseCards;
     }
 
-    public function add(string $deckId, Request $request): Response
+    public function choose(string $deckId, Request $request): Response
     {
         $cardNumber = $request->request->getInt('number');
+        $action = $request->request->getAlpha('action');
 
-        if ($cardNumber) {
+        if (($cardNumber) && (! empty($action))) {
             try {
-                $this->chooseCards->add($deckId, $cardNumber);
-            } catch (OverflowException $exception) {
-                $this->addFlash('error', $exception->getMessage());
-            } catch (OutOfBoundsException $exception) {
-                $this->addFlash('error', $exception->getMessage());
-            }
-        }
-
-        return $this->redirectToRoute('edit_deck', ['id' => $deckId]);
-    }
-
-    public function remove(string $deckId, Request $request): Response
-    {
-        $cardNumber = $request->request->getInt('number');
-
-        if ($cardNumber) {
-            try {
-                $this->chooseCards->remove($deckId, $cardNumber);
-            } catch (OutOfBoundsException $exception) {
+                if ($action === 'remove') {
+                    $this->chooseCards->remove($deckId, $cardNumber);
+                } else {
+                    $this->chooseCards->add($deckId, $cardNumber);
+                }
+            } catch (OverflowException | UnderflowException | OutOfBoundsException $exception) {
                 $this->addFlash('error', $exception->getMessage());
             }
         }
