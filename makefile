@@ -12,7 +12,7 @@ install: ## Install the project
 install: vendor var/data
 
 run: ## Run the project
-run: vendor
+run: vendor var/data
 	$(EXEC_SYMFONY) serve
 
 .PHONY: install run
