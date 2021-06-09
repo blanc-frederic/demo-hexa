@@ -7,6 +7,6 @@ namespace Infrastructure\Contract;
 interface FixturesGeneratorInterface
 {
     /** @return string[] */
-    public function getMissingFiles(): array;
+    public function getMissingFixtures(): array;
     public function generate(): void;
 }

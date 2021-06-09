@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Infrastructure\File\Fixtures;
 
+use Domain\Contract\DeckRepository;
+use Domain\Entity\Deck;
 use Infrastructure\Contract\FixturesGeneratorInterface;
+use OutOfBoundsException;
 
 use function Safe\file_put_contents;
 use function Safe\json_encode;
@@ -13,14 +16,16 @@ use function Safe\mkdir;
 class FileFixtures implements FixturesGeneratorInterface
 {
     private string $path;
+    private DeckRepository $deckRepository;
 
-    public function __construct(string $path)
+    public function __construct(string $path, DeckRepository $deckRepository)
     {
         $this->path = $path;
+        $this->deckRepository = $deckRepository;
     }
 
     /** @return string[] */
-    public function getMissingFiles(): array
+    public function getMissingFixtures(): array
     {
         $missing = [];
 
@@ -29,6 +34,9 @@ class FileFixtures implements FixturesGeneratorInterface
         }
         if (! $this->isCardsFileExists()) {
             $missing[] = 'Cards';
+        }
+        if (! $this->hasTestDeck()) {
+            $missing[] = 'Test deck';
         }
 
         return $missing;
@@ -42,6 +50,7 @@ class FileFixtures implements FixturesGeneratorInterface
 
         $this->generateSets();
         $this->generateCards();
+        $this->generateTestDeck();
     }
 
     private function isSetsFileExists(): bool
@@ -52,6 +61,25 @@ class FileFixtures implements FixturesGeneratorInterface
     private function isCardsFileExists(): bool
     {
         return is_file($this->path . '/cards.json');
+    }
+
+    private function hasTestDeck(): bool
+    {
+        try {
+            $deck = $this->deckRepository->get('test');
+        } catch (OutOfBoundsException $exception) {
+            return false;
+        }
+        return true;
+    }
+
+    private function generateTestDeck(): void
+    {
+        if ($this->hasTestDeck()) {
+            return;
+        }
+
+        $this->deckRepository->save(new Deck('test', 'Test deck'));
     }
 
     private function generateSets(): void

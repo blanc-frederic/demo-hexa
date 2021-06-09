@@ -27,24 +27,24 @@ class FixturesLoadCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln([
-            'Fixtures generator',
-            '==================',
+            'Fixtures loader',
+            '===============',
         ]);
 
-        $missingFiles = $this->generator->getMissingFiles();
+        $missing = $this->generator->getMissingFixtures();
 
-        if (empty($missingFiles)) {
-            $output->writeln('No file generation needed');
+        if (empty($missing)) {
+            $output->writeln('No fixtures load needed');
             return Command::SUCCESS;
         }
 
-        foreach ($missingFiles as $file) {
-            $output->writeln('Generating ' . $file . '...');
+        foreach ($missing as $fixture) {
+            $output->writeln('Loading ' . $fixture . '...');
         }
 
         $this->generator->generate();
 
-        $output->writeln('Done ! ' . count($missingFiles) . ' files generated');
+        $output->writeln('Done !');
 
         return Command::SUCCESS;
     }
