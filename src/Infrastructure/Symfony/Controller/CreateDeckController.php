@@ -21,8 +21,7 @@ class CreateDeckController extends AbstractController
     public function create(Request $request): Response
     {
         $name = (string) $request->request->get('name');
-
-        if ($name) {
+        if (! empty($name)) {
             $this->creator->create($name);
         }
 
