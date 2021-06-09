@@ -18,9 +18,9 @@ class FileFixtures implements FixturesGeneratorInterface
     private string $path;
     private DeckRepository $deckRepository;
 
-    public function __construct(string $path, DeckRepository $deckRepository)
+    public function __construct(string $dataPath, DeckRepository $deckRepository)
     {
-        $this->path = $path;
+        $this->path = $dataPath;
         $this->deckRepository = $deckRepository;
     }
 

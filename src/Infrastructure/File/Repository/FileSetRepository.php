@@ -17,9 +17,9 @@ class FileSetRepository implements SetRepository
     /** @var Set[] */
     private array $sets;
 
-    public function __construct(string $path)
+    public function __construct(string $dataPath)
     {
-        $this->filename = $path . '/sets.json';
+        $this->filename = $dataPath . '/sets.json';
         $this->sets = [];
     }
 

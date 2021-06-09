@@ -25,9 +25,9 @@ class FileDeckRepository implements DeckRepository, DeckFinder
     /** @var Deck[] */
     private array $decks;
 
-    public function __construct(string $path, CardRepository $cardRepository)
+    public function __construct(string $dataPath, CardRepository $cardRepository)
     {
-        $this->path = $path . '/decks';
+        $this->path = $dataPath . '/decks';
         $this->cardRepository = $cardRepository;
         $this->decks = [];
     }

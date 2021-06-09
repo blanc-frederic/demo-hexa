@@ -21,9 +21,9 @@ class FileCardRepository implements CardRepository, CardFinder
     /** @var Card[] */
     private array $cards;
 
-    public function __construct(string $path, SetRepository $setRepository)
+    public function __construct(string $dataPath, SetRepository $setRepository)
     {
-        $this->filename = $path . '/cards.json';
+        $this->filename = $dataPath . '/cards.json';
         $this->setRepository = $setRepository;
         $this->cards = [];
     }
