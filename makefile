@@ -34,13 +34,13 @@ check: vendor
 ## 
 
 test: ## Run all tests
-test: vendor
+test: vendor var/data
 	$(EXEC_VENDOR)/phpstan analyse src --memory-limit 0
 	$(EXEC_DEPTRAC) --fail-on-uncovered
 	$(EXEC_VENDOR)/phpunit --testsuite full
 
 coverage: ## Run all tests with code coverage
-coverage: vendor
+coverage: vendor var/data
 	XDEBUG_MODE=coverage $(EXEC_VENDOR)/phpunit --testsuite full --coverage-html var/report
 
 .PHONY: test coverage

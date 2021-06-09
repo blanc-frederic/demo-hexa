@@ -4,108 +4,39 @@ declare(strict_types=1);
 
 namespace Infrastructure\File\Fixtures;
 
-use Domain\Contract\DeckRepository;
-use Domain\Entity\Deck;
-use Infrastructure\Contract\FixturesGeneratorInterface;
-use OutOfBoundsException;
+use Infrastructure\Contract\FixturesLoaderInterface;
 
 use function Safe\file_put_contents;
 use function Safe\json_encode;
 use function Safe\mkdir;
 
-class FileFixtures implements FixturesGeneratorInterface
+class CardsFixtures implements FixturesLoaderInterface
 {
     private string $path;
-    private DeckRepository $deckRepository;
 
-    public function __construct(string $dataPath, DeckRepository $deckRepository)
+    public function __construct(string $dataPath)
     {
         $this->path = $dataPath;
-        $this->deckRepository = $deckRepository;
     }
 
-    /** @return string[] */
-    public function getMissingFixtures(): array
+    public function getName(): string
     {
-        $missing = [];
-
-        if (! $this->isSetsFileExists()) {
-            $missing[] = 'Sets';
-        }
-        if (! $this->isCardsFileExists()) {
-            $missing[] = 'Cards';
-        }
-        if (! $this->hasTestDeck()) {
-            $missing[] = 'Test deck';
-        }
-
-        return $missing;
+        return 'Cards fixtures';
     }
 
-    public function generate(): void
+    public function isNeeded(): bool
     {
+        return ! is_file($this->path . '/cards.json');
+    }
+
+    public function load(): void
+    {
+        if (! $this->isNeeded()) {
+            return;
+        }
+
         if (! is_dir($this->path)) {
             mkdir($this->path, 0755, true);
-        }
-
-        $this->generateSets();
-        $this->generateCards();
-        $this->generateTestDeck();
-    }
-
-    private function isSetsFileExists(): bool
-    {
-        return is_file($this->path . '/sets.json');
-    }
-
-    private function isCardsFileExists(): bool
-    {
-        return is_file($this->path . '/cards.json');
-    }
-
-    private function hasTestDeck(): bool
-    {
-        try {
-            $deck = $this->deckRepository->get('test');
-        } catch (OutOfBoundsException $exception) {
-            return false;
-        }
-        return true;
-    }
-
-    private function generateTestDeck(): void
-    {
-        if ($this->hasTestDeck()) {
-            return;
-        }
-
-        $this->deckRepository->save(new Deck('test', 'Test deck'));
-    }
-
-    private function generateSets(): void
-    {
-        if ($this->isSetsFileExists()) {
-            return;
-        }
-
-        file_put_contents($this->path . '/sets.json', json_encode([
-            ['code' => 'CORE', 'name' => 'Core set', 'standard' => true],
-            ['code' => 'EXPERT1', 'name' => 'Classic set', 'standard' => true],
-            ['code' => 'NAXX', 'name' => 'Curse of Naxxramas', 'standard' => false],
-            ['code' => 'GVG', 'name' => 'Goblins vs Gnomes', 'standard' => false],
-            ['code' => 'BRM', 'name' => 'Blacrock Mountain', 'standard' => false],
-            ['code' => 'TGT', 'name' => 'The Grand Tournament', 'standard' => false],
-            ['code' => 'LOE', 'name' => 'League of Explorers', 'standard' => false],
-            ['code' => 'OG', 'name' => 'Whispers of the Old Gods', 'standard' => false],
-            ['code' => 'KARA', 'name' => 'One Night in Karazhan', 'standard' => false],
-            ['code' => 'GANGS', 'name' => 'Mean Streets of Gadgetzan', 'standard' => false],
-        ]));
-    }
-
-    private function generateCards(): void
-    {
-        if ($this->isCardsFileExists()) {
-            return;
         }
 
         file_put_contents($this->path . '/cards.json', json_encode([

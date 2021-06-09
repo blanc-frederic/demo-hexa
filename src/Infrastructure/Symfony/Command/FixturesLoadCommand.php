@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace Infrastructure\Symfony\Command;
 
-use Infrastructure\Contract\FixturesGeneratorInterface;
+use Infrastructure\Contract\FixturesLoaderInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class FixturesLoadCommand extends Command
 {
-    private FixturesGeneratorInterface $generator;
+    /** @var FixturesLoaderInterface[] */
+    private iterable $loaders;
 
-    public function __construct(FixturesGeneratorInterface $generator)
+    /** @param FixturesLoaderInterface[] $loaders */
+    public function __construct(iterable $loaders)
     {
-        $this->generator = $generator;
+        $this->loaders = $loaders;
         parent::__construct('app:fixtures:load');
     }
 
@@ -31,20 +33,22 @@ class FixturesLoadCommand extends Command
             '===============',
         ]);
 
-        $missing = $this->generator->getMissingFixtures();
+        $loaded = 0;
+        foreach ($this->loaders as $loader) {
+            if (! $loader->isNeeded()) {
+                continue;
+            }
 
-        if (empty($missing)) {
+            $output->writeln('Loading ' . $loader->getName() . '...');
+            $loader->load();
+            $loaded++;
+        }
+
+        if ($loaded === 0) {
             $output->writeln('No fixtures load needed');
-            return Command::SUCCESS;
+        } else {
+            $output->writeln('Done !');
         }
-
-        foreach ($missing as $fixture) {
-            $output->writeln('Loading ' . $fixture . '...');
-        }
-
-        $this->generator->generate();
-
-        $output->writeln('Done !');
 
         return Command::SUCCESS;
     }
