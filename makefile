@@ -36,7 +36,7 @@ check: vendor
 test: ## Run all tests
 test: vendor var/data
 	$(EXEC_VENDOR)/phpstan analyse src --memory-limit 0
-	$(EXEC_DEPTRAC) --fail-on-uncovered
+	$(EXEC_DEPTRAC) --report-uncovered --fail-on-uncovered
 	$(EXEC_VENDOR)/phpunit --testsuite full
 
 coverage: ## Run all tests with code coverage
