@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Catalog\Card;
+namespace Tests\Domain\Catalog;
 
 use Domain\Catalog\ListCards;
 use Domain\Contract\CardFinder;
