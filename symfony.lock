@@ -200,9 +200,6 @@
             "src/Kernel.php"
         ]
     },
-    "symfony/http-client-contracts": {
-        "version": "v2.4.0"
-    },
     "symfony/http-foundation": {
         "version": "v5.3.1"
     },
@@ -231,15 +228,6 @@
         "version": "v1.23.0"
     },
     "symfony/polyfill-mbstring": {
-        "version": "v1.23.0"
-    },
-    "symfony/polyfill-php73": {
-        "version": "v1.23.0"
-    },
-    "symfony/polyfill-php80": {
-        "version": "v1.23.0"
-    },
-    "symfony/polyfill-php81": {
         "version": "v1.23.0"
     },
     "symfony/routing": {
