@@ -7,6 +7,7 @@ namespace Infrastructure\File\Repository;
 use Domain\Contract\SetRepository;
 use Domain\Entity\Set;
 use OutOfBoundsException;
+use UnexpectedValueException;
 
 use function Safe\file_get_contents;
 use function Safe\json_decode;
@@ -38,6 +39,9 @@ class FileSetRepository implements SetRepository
     {
         if ((empty($this->sets)) && (is_file($this->filename))) {
             $raw = json_decode(file_get_contents($this->filename), true);
+            if (! is_array($raw)) {
+                throw new UnexpectedValueException('Set store corrupted');
+            }
             foreach ($raw as $rawSet) {
                 $this->sets[$rawSet['code']] = new Set(
                     $rawSet['code'],

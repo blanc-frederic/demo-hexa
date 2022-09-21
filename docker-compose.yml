@@ -12,6 +12,7 @@ services:
       context: ./docker/deptrac
     volumes:
       - .:/app
+    working_dir: /app
     entrypoint: deptrac
     profiles: ['tools']
 

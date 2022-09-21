@@ -9,6 +9,7 @@ use Domain\Contract\DeckFinder;
 use Domain\Contract\DeckRepository;
 use Domain\Entity\Deck;
 use OutOfBoundsException;
+use UnexpectedValueException;
 
 use function Safe\file_get_contents;
 use function Safe\file_put_contents;
@@ -44,6 +45,9 @@ class FileDeckRepository implements DeckRepository, DeckFinder
         }
 
         $rawDeck = json_decode(file_get_contents($filename), true);
+        if (! is_array($rawDeck)) {
+            throw new UnexpectedValueException('Deck store corrupted');
+        }
         $this->decks[$id] = new Deck($rawDeck['id'], $rawDeck['name']);
         foreach ($rawDeck['cards'] as $cardNumber) {
             $this->decks[$id]->add($this->cardRepository->get($cardNumber));

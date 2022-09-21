@@ -67,7 +67,7 @@
             "@auto-scripts"
         ],
         "phpstan": [
-            "phpstan analyse src --memory-limit 1G"
+            "phpstan analyse src"
         ]
     },
     "conflict": {
