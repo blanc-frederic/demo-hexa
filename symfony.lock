@@ -26,9 +26,6 @@
     "phpspec/prophecy": {
         "version": "1.13.0"
     },
-    "phpstan/phpstan": {
-        "version": "0.12.88"
-    },
     "phpunit/php-code-coverage": {
         "version": "9.2.6"
     },
@@ -301,9 +298,6 @@
     },
     "symfony/yaml": {
         "version": "v5.3.0"
-    },
-    "thecodingmachine/phpstan-safe-rule": {
-        "version": "v1.0.1"
     },
     "thecodingmachine/safe": {
         "version": "v1.3.3"
