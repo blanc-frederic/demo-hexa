@@ -9,11 +9,9 @@ use Domain\Entity\Deck;
 
 class ListDeckCards
 {
-    private DeckRepository $repository;
-
-    public function __construct(DeckRepository $repository)
-    {
-        $this->repository = $repository;
+    public function __construct(
+        private DeckRepository $repository
+    ) {
     }
 
     public function getDeck(string $id): Deck

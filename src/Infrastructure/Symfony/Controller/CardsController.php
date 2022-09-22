@@ -11,11 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CardsController extends AbstractController
 {
-    private ListCards $lister;
-
-    public function __construct(ListCards $lister)
-    {
-        $this->lister = $lister;
+    public function __construct(
+        private ListCards $lister
+    ) {
     }
 
     public function index(): Response

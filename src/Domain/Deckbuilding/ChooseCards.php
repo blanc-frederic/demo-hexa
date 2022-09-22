@@ -12,13 +12,10 @@ class ChooseCards
 {
     public const MAX_CARDS_PER_DECK = 30;
 
-    private DeckRepository $deckRepository;
-    private CardRepository $cardRepository;
-
-    public function __construct(DeckRepository $deckRepository, CardRepository $cardRepository)
-    {
-        $this->deckRepository = $deckRepository;
-        $this->cardRepository = $cardRepository;
+    public function __construct(
+        private DeckRepository $deckRepository,
+        private CardRepository $cardRepository
+    ) {
     }
 
     public function add(string $deckId, int $cardNumber): void

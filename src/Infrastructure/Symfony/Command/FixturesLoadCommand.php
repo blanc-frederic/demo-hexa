@@ -11,13 +11,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class FixturesLoadCommand extends Command
 {
-    /** @var FixturesLoaderInterface[] */
-    private iterable $loaders;
-
     /** @param FixturesLoaderInterface[] $loaders */
-    public function __construct(iterable $loaders)
-    {
-        $this->loaders = $loaders;
+    public function __construct(
+        private iterable $loaders
+    ) {
         parent::__construct('app:fixtures:load');
     }
 

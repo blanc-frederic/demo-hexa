@@ -21,16 +21,15 @@ use function Safe\mkdir;
 class FileDeckRepository implements DeckRepository, DeckFinder
 {
     private string $path;
-    private CardRepository $cardRepository;
 
     /** @var Deck[] */
-    private array $decks;
+    private array $decks = [];
 
-    public function __construct(string $dataPath, CardRepository $cardRepository)
-    {
+    public function __construct(
+        string $dataPath,
+        private CardRepository $cardRepository
+    ) {
         $this->path = $dataPath . '/decks';
-        $this->cardRepository = $cardRepository;
-        $this->decks = [];
     }
 
     public function get(string $id): Deck

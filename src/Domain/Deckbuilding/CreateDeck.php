@@ -10,15 +10,10 @@ use Domain\Entity\Deck;
 
 class CreateDeck
 {
-    private IdentifierGenerator $generator;
-    private DeckRepository $repository;
-
     public function __construct(
-        IdentifierGenerator $generator,
-        DeckRepository $repository
+        private IdentifierGenerator $generator,
+        private DeckRepository $repository
     ) {
-        $this->generator = $generator;
-        $this->repository = $repository;
     }
 
     public function create(string $name): void

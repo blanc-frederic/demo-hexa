@@ -11,11 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateDeckController extends AbstractController
 {
-    private CreateDeck $creator;
-
-    public function __construct(CreateDeck $creator)
-    {
-        $this->creator = $creator;
+    public function __construct(
+        private CreateDeck $creator
+    ) {
     }
 
     public function create(Request $request): Response

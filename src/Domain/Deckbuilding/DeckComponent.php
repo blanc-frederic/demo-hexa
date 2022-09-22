@@ -13,18 +13,16 @@ class DeckComponent
     private const MIN_CARDS_COPIES = 1;
     private const MAX_CARDS_COPIES = 2;
 
-    private int $count;
-    private Card $card;
+    private int $count = 1;
 
     public static function createFor(Card $card): self
     {
         return new self($card);
     }
 
-    private function __construct(Card $card)
-    {
-        $this->count = 1;
-        $this->card = $card;
+    private function __construct(
+        private Card $card
+    ) {
     }
 
     public function getCount(): int

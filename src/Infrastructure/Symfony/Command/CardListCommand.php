@@ -12,11 +12,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CardListCommand extends Command
 {
-    private ListCards $lister;
-
-    public function __construct(ListCards $lister)
-    {
-        $this->lister = $lister;
+    public function __construct(
+        private ListCards $lister
+    ) {
         parent::__construct('app:card:list');
     }
 

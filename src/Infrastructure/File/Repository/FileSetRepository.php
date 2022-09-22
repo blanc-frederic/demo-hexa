@@ -16,12 +16,11 @@ class FileSetRepository implements SetRepository
 {
     private string $filename;
     /** @var Set[] */
-    private array $sets;
+    private array $sets = [];
 
     public function __construct(string $dataPath)
     {
         $this->filename = $dataPath . '/sets.json';
-        $this->sets = [];
     }
 
     public function get(string $code): Set

@@ -6,25 +6,19 @@ namespace Domain\Entity;
 
 use Domain\Deckbuilding\DeckComponent;
 use OutOfBoundsException;
-use OverflowException;
 
 class Deck
 {
-    private string $id;
-    private string $name;
-
-    private bool $isStandard;
+    private bool $isStandard = true;
     private int $count = 0;
 
     /** @var DeckComponent[] */
-    private array $components;
+    private array $components = [];
 
-    public function __construct(string $id, string $name)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->isStandard = true;
-        $this->components = [];
+    public function __construct(
+        private string $id,
+        private string $name
+    ) {
     }
 
     public function getId(): string

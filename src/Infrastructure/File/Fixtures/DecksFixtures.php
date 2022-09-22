@@ -11,11 +11,9 @@ use OutOfBoundsException;
 
 class DecksFixtures implements FixturesLoaderInterface
 {
-    private DeckRepository $deckRepository;
-
-    public function __construct(DeckRepository $deckRepository)
-    {
-        $this->deckRepository = $deckRepository;
+    public function __construct(
+        private DeckRepository $deckRepository
+    ) {
     }
 
     public function getName(): string
