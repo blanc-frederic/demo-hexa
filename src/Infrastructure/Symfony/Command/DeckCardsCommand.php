@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DeckCardsCommand extends Command
 {
     public function __construct(
-        private DeckRepository $repository
+        private readonly DeckRepository $repository
     ) {
         parent::__construct('app:deck:cards');
     }

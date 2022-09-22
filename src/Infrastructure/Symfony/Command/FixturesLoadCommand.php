@@ -13,7 +13,7 @@ class FixturesLoadCommand extends Command
 {
     /** @param FixturesLoaderInterface[] $loaders */
     public function __construct(
-        private iterable $loaders
+        private readonly iterable $loaders
     ) {
         parent::__construct('app:fixtures:load');
     }

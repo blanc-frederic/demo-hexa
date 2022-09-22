@@ -10,7 +10,7 @@ use Domain\Entity\Card;
 class ListCards
 {
     public function __construct(
-        private CardFinder $finder
+        private readonly CardFinder $finder
     ) {
     }
 

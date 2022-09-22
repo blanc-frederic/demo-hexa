@@ -21,7 +21,7 @@ class DeckComponent
     }
 
     private function __construct(
-        private Card $card
+        private readonly Card $card
     ) {
     }
 

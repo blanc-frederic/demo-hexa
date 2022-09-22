@@ -10,7 +10,7 @@ use Domain\Entity\Deck;
 class ListDeckCards
 {
     public function __construct(
-        private DeckRepository $repository
+        private readonly DeckRepository $repository
     ) {
     }
 

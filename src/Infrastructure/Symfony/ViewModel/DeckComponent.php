@@ -7,9 +7,9 @@ namespace Infrastructure\Symfony\ViewModel;
 class DeckComponent
 {
     public function __construct(
-        public int $count,
-        public int $number,
-        public string $name
+        public readonly int $count,
+        public readonly int $number,
+        public readonly string $name
     ) {
     }
 }

@@ -16,14 +16,14 @@ use function Safe\json_decode;
 
 class FileCardRepository implements CardRepository, CardFinder
 {
-    private string $filename;
+    private readonly string $filename;
 
     /** @var Card[] */
     private array $cards = [];
 
     public function __construct(
         string $dataPath,
-        private SetRepository $setRepository
+        private readonly SetRepository $setRepository
     ) {
         $this->filename = $dataPath . '/cards.json';
     }

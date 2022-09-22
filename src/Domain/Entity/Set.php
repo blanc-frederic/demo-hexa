@@ -7,9 +7,9 @@ namespace Domain\Entity;
 class Set
 {
     public function __construct(
-        private string $code,
-        private string $name,
-        private bool $isStandard = true
+        private readonly string $code,
+        private readonly string $name,
+        private readonly bool $isStandard = true
     ) {
     }
 

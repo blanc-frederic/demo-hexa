@@ -10,7 +10,7 @@ use Domain\Entity\Deck;
 class ListDecks
 {
     public function __construct(
-        private DeckFinder $finder
+        private readonly DeckFinder $finder
     ) {
     }
 

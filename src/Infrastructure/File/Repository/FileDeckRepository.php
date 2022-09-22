@@ -20,14 +20,14 @@ use function Safe\mkdir;
 
 class FileDeckRepository implements DeckRepository, DeckFinder
 {
-    private string $path;
+    private readonly string $path;
 
     /** @var Deck[] */
     private array $decks = [];
 
     public function __construct(
         string $dataPath,
-        private CardRepository $cardRepository
+        private readonly CardRepository $cardRepository
     ) {
         $this->path = $dataPath . '/decks';
     }
@@ -80,7 +80,7 @@ class FileDeckRepository implements DeckRepository, DeckFinder
     public function findAll(): array
     {
         foreach (glob($this->path . '/*.json') as $filename) {
-            $id = basename($filename, '.json');
+            $id = basename((string) $filename, '.json');
             if (! isset($this->decks[$id])) {
                 $this->get($id);
             }

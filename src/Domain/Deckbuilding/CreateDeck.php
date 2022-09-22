@@ -11,8 +11,8 @@ use Domain\Entity\Deck;
 class CreateDeck
 {
     public function __construct(
-        private IdentifierGenerator $generator,
-        private DeckRepository $repository
+        private readonly IdentifierGenerator $generator,
+        private readonly DeckRepository $repository
     ) {
     }
 

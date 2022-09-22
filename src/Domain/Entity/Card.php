@@ -7,9 +7,9 @@ namespace Domain\Entity;
 class Card
 {
     public function __construct(
-        private int $number,
-        private string $name,
-        private Set $set
+        private readonly int $number,
+        private readonly string $name,
+        private readonly Set $set
     ) {
     }
 

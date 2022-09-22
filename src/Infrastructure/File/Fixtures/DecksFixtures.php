@@ -12,7 +12,7 @@ use OutOfBoundsException;
 class DecksFixtures implements FixturesLoaderInterface
 {
     public function __construct(
-        private DeckRepository $deckRepository
+        private readonly DeckRepository $deckRepository
     ) {
     }
 
@@ -25,7 +25,7 @@ class DecksFixtures implements FixturesLoaderInterface
     {
         try {
             $this->deckRepository->get('test');
-        } catch (OutOfBoundsException $exception) {
+        } catch (OutOfBoundsException) {
             return true;
         }
         return false;

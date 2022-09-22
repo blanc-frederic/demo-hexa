@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CreateDeckController extends AbstractController
 {
     public function __construct(
-        private CreateDeck $creator
+        private readonly CreateDeck $creator
     ) {
     }
 

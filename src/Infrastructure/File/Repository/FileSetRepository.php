@@ -14,7 +14,7 @@ use function Safe\json_decode;
 
 class FileSetRepository implements SetRepository
 {
-    private string $filename;
+    private readonly string $filename;
     /** @var Set[] */
     private array $sets = [];
 

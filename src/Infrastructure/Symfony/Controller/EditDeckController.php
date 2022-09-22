@@ -15,8 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 class EditDeckController extends AbstractController
 {
     public function __construct(
-        private ListDeckCards $lister,
-        private ListCards $listCards
+        private readonly ListDeckCards $lister,
+        private readonly ListCards $listCards
     ) {
     }
 

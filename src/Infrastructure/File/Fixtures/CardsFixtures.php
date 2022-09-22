@@ -13,7 +13,7 @@ use function Safe\mkdir;
 class CardsFixtures implements FixturesLoaderInterface
 {
     public function __construct(
-        private string $dataPath
+        private readonly string $dataPath
     ) {
     }
 

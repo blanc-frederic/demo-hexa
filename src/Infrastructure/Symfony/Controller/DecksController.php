@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DecksController extends AbstractController
 {
     public function __construct(
-        private ListDecks $lister
+        private readonly ListDecks $lister
     ) {
     }
 

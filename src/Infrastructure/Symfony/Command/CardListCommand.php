@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CardListCommand extends Command
 {
     public function __construct(
-        private ListCards $lister
+        private readonly ListCards $lister
     ) {
         parent::__construct('app:card:list');
     }

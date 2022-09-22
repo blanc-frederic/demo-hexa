@@ -10,11 +10,11 @@ use OverflowException;
 
 class ChooseCards
 {
-    public const MAX_CARDS_PER_DECK = 30;
+    final public const MAX_CARDS_PER_DECK = 30;
 
     public function __construct(
-        private DeckRepository $deckRepository,
-        private CardRepository $cardRepository
+        private readonly DeckRepository $deckRepository,
+        private readonly CardRepository $cardRepository
     ) {
     }
 

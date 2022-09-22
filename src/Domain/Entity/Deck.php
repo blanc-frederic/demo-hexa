@@ -16,8 +16,8 @@ class Deck
     private array $components = [];
 
     public function __construct(
-        private string $id,
-        private string $name
+        private readonly string $id,
+        private readonly string $name
     ) {
     }
 
