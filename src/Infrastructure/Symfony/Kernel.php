@@ -19,7 +19,7 @@ class Kernel extends BaseKernel
     protected function configureContainer(ContainerConfigurator $container): void
     {
         $container->import($this->getConfigDir() . '/{packages}/*.php');
-        $container->import($this->getConfigDir() . '/{services}.php');
+        $container->import($this->getConfigDir() . '/{services}.yaml');
     }
 
     protected function configureRoutes(RoutingConfigurator $routes): void
