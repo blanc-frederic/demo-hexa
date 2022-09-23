@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+      xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Domain\Entity\Card" table="cards" repository-class="Infrastructure\Doctrine\CardRepository">
+
+        <id name="number" type="integer">
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+
+        <field name="name" column="name" type="string" length="20" unique="true" />
+
+        <many-to-one field="set" target-entity="Set">
+            <join-column name="set" referenced-column-name="code" />
+        </many-to-one>
+
+    </entity>
+
+</doctrine-mapping>

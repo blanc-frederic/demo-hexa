@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+      xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Domain\Entity\Set" table="sets" repository-class="Infrastructure\Doctrine\SetRepository">
+
+        <id name="code" type="string" />
+
+        <field name="name" column="name" type="string" length="25" unique="true" />
+        <field name="isStandard" column="is_standard" type="boolean" />
+
+    </entity>
+
+</doctrine-mapping>
