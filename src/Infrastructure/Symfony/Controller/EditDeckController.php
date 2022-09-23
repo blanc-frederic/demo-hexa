@@ -14,13 +14,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EditDeckController extends AbstractController
 {
-    private ListDeckCards $lister;
-    private ListCards $listCards;
-
-    public function __construct(ListDeckCards $lister, ListCards $listCards)
-    {
-        $this->lister = $lister;
-        $this->listCards = $listCards;
+    public function __construct(
+        private readonly ListDeckCards $lister,
+        private readonly ListCards $listCards
+    ) {
     }
 
     public function edit(string $id): Response

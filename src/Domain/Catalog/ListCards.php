@@ -9,11 +9,9 @@ use Domain\Entity\Card;
 
 class ListCards
 {
-    private CardFinder $finder;
-
-    public function __construct(CardFinder $finder)
-    {
-        $this->finder = $finder;
+    public function __construct(
+        private readonly CardFinder $finder
+    ) {
     }
 
     /** @return Card[] */

@@ -10,14 +10,7 @@ Used during "L'architecture hexagonale... concrètement" conference on AFUP Day,
 
 ### Prerequisites
 
-- PHP 7.4+
-- Composer
-
-#### Optionals
-
-- [Deptrac](https://github.com/qossmic/deptrac#installation) for dependencies check
-- Xdebug or similar for code coverage
-- Symfony exe for local development
+- Docker
 
 ### Installing
 
@@ -31,17 +24,13 @@ For full tests chain : static analysis, dependencies checks and tests
 
 For running only unit tests
 
-    vendor/bin/phpunit
+    docker compose run tests
 
 ### Code coverage
 
     make coverage
 
 Reports will be available in var/report/index.html
-
-## Running locally
-
-    symfony serve
 
 ## Authors
 

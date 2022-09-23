@@ -1,8 +1,7 @@
-EXEC_COMPOSER = composer
-EXEC_CONSOLE = php bin/console
-EXEC_DEPTRAC = deptrac
-EXEC_SYMFONY = symfony
-EXEC_VENDOR = vendor/bin
+EXEC_COMPOSER = docker compose run composer
+EXEC_CONSOLE = docker compose run console
+EXEC_DEPTRAC = docker compose run deptrac
+EXEC_TESTS = docker compose run tests
 
 ## 
 ## Project
@@ -13,7 +12,6 @@ install: vendor var/data
 
 run: ## Run the project
 run: vendor var/data
-	$(EXEC_SYMFONY) serve
 
 .PHONY: install run
 
@@ -35,13 +33,13 @@ check: vendor
 
 test: ## Run all tests
 test: vendor var/data
-	$(EXEC_VENDOR)/phpstan analyse src --memory-limit 0
+	$(EXEC_COMPOSER) phpstan
 	$(EXEC_DEPTRAC) --report-uncovered --fail-on-uncovered
-	$(EXEC_VENDOR)/phpunit --testsuite full
+	$(EXEC_TESTS) --testsuite full
 
 coverage: ## Run all tests with code coverage
 coverage: vendor var/data
-	XDEBUG_MODE=coverage $(EXEC_VENDOR)/phpunit --testsuite full --coverage-html var/report
+	$(EXEC_TESTS) --testsuite full --coverage-html var/report
 
 .PHONY: test coverage
 

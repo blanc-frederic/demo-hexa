@@ -9,23 +9,23 @@ use Domain\Contract\CardRepository;
 use Domain\Contract\SetRepository;
 use Domain\Entity\Card;
 use OutOfBoundsException;
+use UnexpectedValueException;
 
 use function Safe\file_get_contents;
 use function Safe\json_decode;
 
 class FileCardRepository implements CardRepository, CardFinder
 {
-    private string $filename;
-    private SetRepository $setRepository;
+    private readonly string $filename;
 
     /** @var Card[] */
-    private array $cards;
+    private array $cards = [];
 
-    public function __construct(string $dataPath, SetRepository $setRepository)
-    {
+    public function __construct(
+        string $dataPath,
+        private readonly SetRepository $setRepository
+    ) {
         $this->filename = $dataPath . '/cards.json';
-        $this->setRepository = $setRepository;
-        $this->cards = [];
     }
 
     public function get(int $number): Card
@@ -59,9 +59,12 @@ class FileCardRepository implements CardRepository, CardFinder
     {
         if ((empty($this->cards)) && (is_file($this->filename))) {
             $raw = json_decode(file_get_contents($this->filename), true);
+            if (! is_array($raw)) {
+                throw new UnexpectedValueException('Cards store corrupted');
+            }
             foreach ($raw as $rawCard) {
                 $this->cards[$rawCard['number']] = new Card(
-                    $rawCard['number'],
+                    (int) $rawCard['number'],
                     $rawCard['name'],
                     $this->setRepository->get($rawCard['set'])
                 );

@@ -6,15 +6,16 @@ namespace Domain\Entity;
 
 class Set
 {
-    private string $code;
-    private string $name;
-    private bool $isStandard;
+    public function __construct(
+        private readonly string $code,
+        private readonly string $name,
+        private readonly bool $isStandard = true
+    ) {
+    }
 
-    public function __construct(string $code, string $name, bool $isStandard = true)
+    public function getCode(): string
     {
-        $this->code = $code;
-        $this->name = $name;
-        $this->isStandard = $isStandard;
+        return $this->code;
     }
 
     public function getName(): string

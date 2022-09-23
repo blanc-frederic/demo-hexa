@@ -12,11 +12,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DeckListCommand extends Command
 {
-    private ListDecks $lister;
-
-    public function __construct(ListDecks $lister)
-    {
-        $this->lister = $lister;
+    public function __construct(
+        private readonly ListDecks $lister
+    ) {
         parent::__construct('app:deck:list');
     }
 

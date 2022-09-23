@@ -14,11 +14,9 @@ use UnderflowException;
 
 class ChooseCardsController extends AbstractController
 {
-    private ChooseCards $chooseCards;
-
-    public function __construct(ChooseCards $chooseCards)
-    {
-        $this->chooseCards = $chooseCards;
+    public function __construct(
+        private readonly ChooseCards $chooseCards
+    ) {
     }
 
     public function choose(string $deckId, Request $request): Response

@@ -12,11 +12,9 @@ use function Safe\mkdir;
 
 class CardsFixtures implements FixturesLoaderInterface
 {
-    private string $path;
-
-    public function __construct(string $dataPath)
-    {
-        $this->path = $dataPath;
+    public function __construct(
+        private readonly string $dataPath
+    ) {
     }
 
     public function getName(): string
@@ -26,7 +24,7 @@ class CardsFixtures implements FixturesLoaderInterface
 
     public function isNeeded(): bool
     {
-        return ! is_file($this->path . '/cards.json');
+        return ! is_file($this->dataPath . '/cards.json');
     }
 
     public function load(): void
@@ -35,11 +33,11 @@ class CardsFixtures implements FixturesLoaderInterface
             return;
         }
 
-        if (! is_dir($this->path)) {
-            mkdir($this->path, 0755, true);
+        if (! is_dir($this->dataPath)) {
+            mkdir($this->dataPath, 0755, true);
         }
 
-        file_put_contents($this->path . '/cards.json', json_encode([
+        file_put_contents($this->dataPath . '/cards.json', json_encode([
             ['number' => 64, 'name' => 'Swipe', 'set' => 'CORE'],
             ['number' => 205, 'name' => 'Ironbark Protector', 'set' => 'CORE'],
             ['number' => 213, 'name' => 'Mark of the Wild', 'set' => 'CORE'],

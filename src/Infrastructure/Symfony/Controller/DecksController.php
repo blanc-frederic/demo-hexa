@@ -11,11 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DecksController extends AbstractController
 {
-    private ListDecks $lister;
-
-    public function __construct(ListDecks $lister)
-    {
-        $this->lister = $lister;
+    public function __construct(
+        private readonly ListDecks $lister
+    ) {
     }
 
     public function index(): Response

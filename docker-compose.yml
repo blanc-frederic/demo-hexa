@@ -1,0 +1,55 @@
+services:
+  composer:
+    image: composer
+    environment:
+      - COMPOSER_CACHE_DIR=/app/var/composer/cache
+    volumes:
+      - .:/app
+    profiles: ['tools']
+
+  deptrac:
+    build:
+      context: ./docker/deptrac
+    volumes:
+      - .:/app
+    working_dir: /app
+    entrypoint: deptrac
+    profiles: ['tools']
+
+  tests:
+    build:
+      context: ./docker/tests
+    volumes:
+      - .:/app
+    working_dir: /app
+    entrypoint: vendor/bin/phpunit
+    profiles: ['tools']
+
+  console:
+    extends:
+      service: php
+    entrypoint: bin/console
+    profiles: ['tools']
+
+  php:
+    image: php:8.1-cli
+    working_dir: /app
+    volumes:
+      - .:/app
+    entrypoint: php
+    profiles: ['tools']
+
+  fpm:
+    image: php:8.1-fpm
+    working_dir: /app
+    volumes:
+      - .:/app
+
+  nginx:
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - .:/app
+      - ./var/log/nginx:/var/log/nginx
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf

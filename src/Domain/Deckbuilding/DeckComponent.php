@@ -11,20 +11,18 @@ use UnderflowException;
 class DeckComponent
 {
     private const MIN_CARDS_COPIES = 1;
-    public const MAX_CARDS_COPIES = 2;
+    private const MAX_CARDS_COPIES = 2;
 
-    private int $count;
-    private Card $card;
+    private int $count = 1;
 
     public static function createFor(Card $card): self
     {
         return new self($card);
     }
 
-    private function __construct(Card $card)
-    {
-        $this->count = 1;
-        $this->card = $card;
+    private function __construct(
+        private readonly Card $card
+    ) {
     }
 
     public function getCount(): int
@@ -34,16 +32,16 @@ class DeckComponent
 
     public function addCopy(): void
     {
-        if ($this->count === static::MAX_CARDS_COPIES) {
-            throw new OverflowException('Deck can only contain ' . static::MAX_CARDS_COPIES . ' copies of the same card');
+        if ($this->count === self::MAX_CARDS_COPIES) {
+            throw new OverflowException('Deck can only contain ' . self::MAX_CARDS_COPIES . ' copies of the same card');
         }
         $this->count++;
     }
 
     public function removeCopy(): void
     {
-        if ($this->count === static::MIN_CARDS_COPIES) {
-            throw new UnderflowException('Cannot keep less than ' . static::MIN_CARDS_COPIES . ' copy of a card');
+        if ($this->count === self::MIN_CARDS_COPIES) {
+            throw new UnderflowException('Cannot keep less than ' . self::MIN_CARDS_COPIES . ' copy of a card');
         }
         $this->count--;
     }

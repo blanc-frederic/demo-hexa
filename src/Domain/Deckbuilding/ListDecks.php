@@ -9,11 +9,9 @@ use Domain\Entity\Deck;
 
 class ListDecks
 {
-    private DeckFinder $finder;
-
-    public function __construct(DeckFinder $finder)
-    {
-        $this->finder = $finder;
+    public function __construct(
+        private readonly DeckFinder $finder
+    ) {
     }
 
     /** @return Deck[] */

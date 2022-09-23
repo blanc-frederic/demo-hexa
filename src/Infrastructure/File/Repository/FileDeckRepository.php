@@ -9,6 +9,7 @@ use Domain\Contract\DeckFinder;
 use Domain\Contract\DeckRepository;
 use Domain\Entity\Deck;
 use OutOfBoundsException;
+use UnexpectedValueException;
 
 use function Safe\file_get_contents;
 use function Safe\file_put_contents;
@@ -19,17 +20,16 @@ use function Safe\mkdir;
 
 class FileDeckRepository implements DeckRepository, DeckFinder
 {
-    private string $path;
-    private CardRepository $cardRepository;
+    private readonly string $path;
 
     /** @var Deck[] */
-    private array $decks;
+    private array $decks = [];
 
-    public function __construct(string $dataPath, CardRepository $cardRepository)
-    {
+    public function __construct(
+        string $dataPath,
+        private readonly CardRepository $cardRepository
+    ) {
         $this->path = $dataPath . '/decks';
-        $this->cardRepository = $cardRepository;
-        $this->decks = [];
     }
 
     public function get(string $id): Deck
@@ -44,6 +44,9 @@ class FileDeckRepository implements DeckRepository, DeckFinder
         }
 
         $rawDeck = json_decode(file_get_contents($filename), true);
+        if (! is_array($rawDeck)) {
+            throw new UnexpectedValueException('Deck store corrupted');
+        }
         $this->decks[$id] = new Deck($rawDeck['id'], $rawDeck['name']);
         foreach ($rawDeck['cards'] as $cardNumber) {
             $this->decks[$id]->add($this->cardRepository->get($cardNumber));
@@ -77,7 +80,7 @@ class FileDeckRepository implements DeckRepository, DeckFinder
     public function findAll(): array
     {
         foreach (glob($this->path . '/*.json') as $filename) {
-            $id = basename($filename, '.json');
+            $id = basename((string) $filename, '.json');
             if (! isset($this->decks[$id])) {
                 $this->get($id);
             }

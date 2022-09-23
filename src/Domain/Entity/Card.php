@@ -6,15 +6,11 @@ namespace Domain\Entity;
 
 class Card
 {
-    private int $number;
-    private string $name;
-    private Set $set;
-
-    public function __construct(int $number, string $name, Set $set)
-    {
-        $this->number = $number;
-        $this->name = $name;
-        $this->set = $set;
+    public function __construct(
+        private readonly int $number,
+        private readonly string $name,
+        private readonly Set $set
+    ) {
     }
 
     public function getNumber(): int
