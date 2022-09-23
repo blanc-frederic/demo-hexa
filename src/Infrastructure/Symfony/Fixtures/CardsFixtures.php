@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\File\Fixtures;
+namespace Infrastructure\Symfony\Fixtures;
 
-use Domain\Contract\CardFinder;
 use Domain\Contract\CardRepository;
 use Domain\Entity\Card;
 use Domain\Entity\Set;
@@ -23,6 +22,7 @@ class CardsFixtures implements FixturesLoaderInterface
 
     public static function getDefaultPriority(): int
     {
+        // let Sets fixtures load first
         return 2;
     }
 

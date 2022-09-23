@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\File\Fixtures;
+namespace Infrastructure\Symfony\Fixtures;
 
 use Domain\Contract\DeckRepository;
 use Domain\Entity\Deck;
