@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Infrastructure\File\Fixtures;
 
+use Domain\Contract\SetRepository;
+use Domain\Entity\Set;
 use Infrastructure\Contract\FixturesLoaderInterface;
-
-use function Safe\file_put_contents;
-use function Safe\json_encode;
-use function Safe\mkdir;
+use OutOfBoundsException;
 
 class SetsFixtures implements FixturesLoaderInterface
 {
     public function __construct(
-        private readonly string $dataPath
+        private readonly SetRepository $repository
     ) {
     }
 
@@ -24,7 +23,12 @@ class SetsFixtures implements FixturesLoaderInterface
 
     public function isNeeded(): bool
     {
-        return ! is_file($this->dataPath . '/sets.json');
+        try {
+            $this->repository->get('CORE');
+            return false;
+        } catch (OutOfBoundsException) {
+            return true;
+        }
     }
 
     public function load(): void
@@ -33,21 +37,26 @@ class SetsFixtures implements FixturesLoaderInterface
             return;
         }
 
-        if (! is_dir($this->dataPath)) {
-            mkdir($this->dataPath, 0755, true);
-        }
+        array_map(
+            fn(Set $set) => $this->repository->save($set),
+            $this->getSets()
+        );
+    }
 
-        file_put_contents($this->dataPath . '/sets.json', json_encode([
-            ['code' => 'CORE', 'name' => 'Core set', 'standard' => true],
-            ['code' => 'EXPERT1', 'name' => 'Classic set', 'standard' => true],
-            ['code' => 'NAXX', 'name' => 'Curse of Naxxramas', 'standard' => false],
-            ['code' => 'GVG', 'name' => 'Goblins vs Gnomes', 'standard' => false],
-            ['code' => 'BRM', 'name' => 'Blacrock Mountain', 'standard' => false],
-            ['code' => 'TGT', 'name' => 'The Grand Tournament', 'standard' => false],
-            ['code' => 'LOE', 'name' => 'League of Explorers', 'standard' => false],
-            ['code' => 'OG', 'name' => 'Whispers of the Old Gods', 'standard' => false],
-            ['code' => 'KARA', 'name' => 'One Night in Karazhan', 'standard' => false],
-            ['code' => 'GANGS', 'name' => 'Mean Streets of Gadgetzan', 'standard' => false],
-        ]));
+    /** @return Set[] */
+    public function getSets(): array
+    {
+        return [
+            new Set('CORE', 'Core set', true),
+            new Set('EXPERT1', 'Classic set', true),
+            new Set('NAXX', 'Curse of Naxxramas', false),
+            new Set('GVG', 'Goblins vs Gnomes', false),
+            new Set('BRM', 'Blacrock Mountain', false),
+            new Set('TGT', 'The Grand Tournament', false),
+            new Set('LOE', 'League of Explorers', false),
+            new Set('OG', 'Whispers of the Old Gods', false),
+            new Set('KARA', 'One Night in Karazhan', false),
+            new Set('GANGS', 'Mean Streets of Gadgetzan', false),
+        ];
     }
 }

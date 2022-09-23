@@ -31,6 +31,11 @@ class MemoryCardRepository implements CardRepository, CardFinder
         return $this->cards[$number];
     }
 
+    public function save(Card $card): void
+    {
+        $this->cards[$card->getNumber()] = $card;
+    }
+
     /** @return Card[] */
     public function findAll(): array
     {

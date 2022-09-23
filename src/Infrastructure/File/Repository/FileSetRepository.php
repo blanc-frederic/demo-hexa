@@ -10,7 +10,10 @@ use OutOfBoundsException;
 use UnexpectedValueException;
 
 use function Safe\file_get_contents;
+use function Safe\file_put_contents;
 use function Safe\json_decode;
+use function Safe\json_encode;
+use function Safe\mkdir;
 
 class FileSetRepository implements SetRepository
 {
@@ -34,6 +37,13 @@ class FileSetRepository implements SetRepository
         return $this->sets[$code];
     }
 
+    public function save(Set $set): void
+    {
+        $this->loadSets();
+        $this->sets[$set->getCode()] = $set;
+        $this->saveSets();
+    }
+
     private function loadSets(): void
     {
         if ((empty($this->sets)) && (is_file($this->filename))) {
@@ -49,5 +59,21 @@ class FileSetRepository implements SetRepository
                 );
             }
         }
+    }
+
+    private function saveSets(): void
+    {
+        if (! is_dir(dirname($this->filename))) {
+            mkdir(dirname($this->filename), 0755, true);
+        }
+
+        file_put_contents($this->filename, json_encode(array_map(
+            fn(Set $set) => [
+                'code' => $set->getCode(),
+                'name' => $set->getName(),
+                'standard' => $set->isStandard(),
+            ],
+            array_values($this->sets)
+        )));
     }
 }

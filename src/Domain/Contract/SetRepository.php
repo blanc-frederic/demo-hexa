@@ -9,4 +9,5 @@ use Domain\Entity\Set;
 interface SetRepository
 {
     public function get(string $code): Set;
+    public function save(Set $set): void;
 }

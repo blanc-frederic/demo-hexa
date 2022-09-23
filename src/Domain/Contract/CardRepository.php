@@ -9,4 +9,5 @@ use Domain\Entity\Card;
 interface CardRepository
 {
     public function get(int $number): Card;
+    public function save(Card $card): void;
 }

@@ -4,17 +4,26 @@ declare(strict_types=1);
 
 namespace Infrastructure\File\Fixtures;
 
+use Domain\Contract\CardFinder;
+use Domain\Contract\CardRepository;
+use Domain\Entity\Card;
+use Domain\Entity\Set;
 use Infrastructure\Contract\FixturesLoaderInterface;
+use OutOfBoundsException;
 
-use function Safe\file_put_contents;
-use function Safe\json_encode;
-use function Safe\mkdir;
+use function Safe\array_combine;
 
 class CardsFixtures implements FixturesLoaderInterface
 {
     public function __construct(
-        private readonly string $dataPath
+        private readonly CardRepository $repository,
+        private readonly SetsFixtures $setFixtures
     ) {
+    }
+
+    public static function getDefaultPriority(): int
+    {
+        return 2;
     }
 
     public function getName(): string
@@ -24,7 +33,12 @@ class CardsFixtures implements FixturesLoaderInterface
 
     public function isNeeded(): bool
     {
-        return ! is_file($this->dataPath . '/cards.json');
+        try {
+            $this->repository->get(64);
+            return false;
+        } catch (OutOfBoundsException) {
+            return true;
+        }
     }
 
     public function load(): void
@@ -33,84 +47,94 @@ class CardsFixtures implements FixturesLoaderInterface
             return;
         }
 
-        if (! is_dir($this->dataPath)) {
-            mkdir($this->dataPath, 0755, true);
-        }
+        array_map(
+            fn(Card $card) => $this->repository->save($card),
+            $this->getCards()
+        );
+    }
 
-        file_put_contents($this->dataPath . '/cards.json', json_encode([
-            ['number' => 64, 'name' => 'Swipe', 'set' => 'CORE'],
-            ['number' => 205, 'name' => 'Ironbark Protector', 'set' => 'CORE'],
-            ['number' => 213, 'name' => 'Mark of the Wild', 'set' => 'CORE'],
-            ['number' => 254, 'name' => 'Innervate', 'set' => 'CORE'],
-            ['number' => 467, 'name' => 'Moonfire', 'set' => 'CORE'],
-            ['number' => 742, 'name' => 'Savage Roar', 'set' => 'CORE'],
-            ['number' => 773, 'name' => 'Healing Touch', 'set' => 'CORE'],
-            ['number' => 823, 'name' => 'Starfire', 'set' => 'CORE'],
-            ['number' => 1050, 'name' => 'Claw', 'set' => 'CORE'],
-            ['number' => 1124, 'name' => 'Wild Growth', 'set' => 'CORE'],
+    /** @return Card[] */
+    public function getCards(): array
+    {
+        $sets = array_combine(
+            array_map(fn(Set $set) => $set->getCode(), $this->setFixtures->getSets()),
+            $this->setFixtures->getSets()
+        );
 
-            ['number' => 86, 'name' => 'Starfall', 'set' => 'EXPERT1'],
-            ['number' => 95, 'name' => 'Nourish', 'set' => 'EXPERT1'],
-            ['number' => 151, 'name' => 'Mark of Nature', 'set' => 'EXPERT1'],
-            ['number' => 233, 'name' => 'Naturalize', 'set' => 'EXPERT1'],
-            ['number' => 381, 'name' => 'Soul of the Forest', 'set' => 'EXPERT1'],
-            ['number' => 481, 'name' => 'Savagery', 'set' => 'EXPERT1'],
-            ['number' => 493, 'name' => 'Force of Nature', 'set' => 'EXPERT1'],
-            ['number' => 503, 'name' => 'Power of the Wild', 'set' => 'EXPERT1'],
-            ['number' => 577, 'name' => 'Bite', 'set' => 'EXPERT1'],
-            ['number' => 601, 'name' => 'Keeper of the Grove', 'set' => 'EXPERT1'],
-            ['number' => 692, 'name' => 'Druid of the Claw', 'set' => 'EXPERT1'],
-            ['number' => 836, 'name' => 'Wrath', 'set' => 'EXPERT1'],
-            ['number' => 920, 'name' => 'Ancient of Lore', 'set' => 'EXPERT1'],
-            ['number' => 1035, 'name' => 'Ancient of War', 'set' => 'EXPERT1'],
+        return [
+            new Card(64, 'Swipe', $sets['CORE']),
+            new Card(205, 'Ironbark Protector', $sets['CORE']),
+            new Card(213, 'Mark of the Wild', $sets['CORE']),
+            new Card(254, 'Innervate', $sets['CORE']),
+            new Card(467, 'Moonfire', $sets['CORE']),
+            new Card(742, 'Savage Roar', $sets['CORE']),
+            new Card(773, 'Healing Touch', $sets['CORE']),
+            new Card(823, 'Starfire', $sets['CORE']),
+            new Card(1050, 'Claw', $sets['CORE']),
+            new Card(1124, 'Wild Growth', $sets['CORE']),
 
-            ['number' => 1802, 'name' => 'Poison Seeds', 'set' => 'NAXX'],
+            new Card(86, 'Starfall', $sets['EXPERT1']),
+            new Card(95, 'Nourish', $sets['EXPERT1']),
+            new Card(151, 'Mark of Nature', $sets['EXPERT1']),
+            new Card(233, 'Naturalize', $sets['EXPERT1']),
+            new Card(381, 'Soul of the Forest', $sets['EXPERT1']),
+            new Card(481, 'Savagery', $sets['EXPERT1']),
+            new Card(493, 'Force of Nature', $sets['EXPERT1']),
+            new Card(503, 'Power of the Wild', $sets['EXPERT1']),
+            new Card(577, 'Bite', $sets['EXPERT1']),
+            new Card(601, 'Keeper of the Grove', $sets['EXPERT1']),
+            new Card(692, 'Druid of the Claw', $sets['EXPERT1']),
+            new Card(836, 'Wrath', $sets['EXPERT1']),
+            new Card(920, 'Ancient of Lore', $sets['EXPERT1']),
+            new Card(1035, 'Ancient of War', $sets['EXPERT1']),
 
-            ['number' => 1995, 'name' => 'Recycle', 'set' => 'GVG'],
-            ['number' => 2001, 'name' => 'Tree of Life', 'set' => 'GVG'],
-            ['number' => 2002, 'name' => 'Mech-Bear-Cat', 'set' => 'GVG'],
-            ['number' => 2009, 'name' => 'Dark Wispers', 'set' => 'GVG'],
-            ['number' => 2048, 'name' => 'Druid of the Fang', 'set' => 'GVG'],
-            ['number' => 2096, 'name' => 'Anodized Robo Cub', 'set' => 'GVG'],
-            ['number' => 2225, 'name' => 'Grove Tender', 'set' => 'GVG'],
+            new Card(1802, 'Poison Seeds', $sets['NAXX']),
 
-            ['number' => 2292, 'name' => 'Druid of the Flame', 'set' => 'BRM'],
-            ['number' => 2295, 'name' => 'Volcanic Lumberer', 'set' => 'BRM'],
+            new Card(1995, 'Recycle', $sets['GVG']),
+            new Card(2001, 'Tree of Life', $sets['GVG']),
+            new Card(2002, 'Mech-Bear-Cat', $sets['GVG']),
+            new Card(2009, 'Dark Wispers', $sets['GVG']),
+            new Card(2048, 'Druid of the Fang', $sets['GVG']),
+            new Card(2096, 'Anodized Robo Cub', $sets['GVG']),
+            new Card(2225, 'Grove Tender', $sets['GVG']),
 
-            ['number' => 2780, 'name' => 'Savage Combatant', 'set' => 'TGT'],
-            ['number' => 2782, 'name' => 'Darnassus Aspirant', 'set' => 'TGT'],
-            ['number' => 2783, 'name' => 'Druid of the Saber', 'set' => 'TGT'],
-            ['number' => 2785, 'name' => 'Astral Communion', 'set' => 'TGT'],
-            ['number' => 2786, 'name' => 'Wildwalker', 'set' => 'TGT'],
-            ['number' => 2788, 'name' => 'Knight of the Wild', 'set' => 'TGT'],
-            ['number' => 2792, 'name' => 'Living Roots', 'set' => 'TGT'],
-            ['number' => 2793, 'name' => 'Mulch', 'set' => 'TGT'],
+            new Card(2292, 'Druid of the Flame', $sets['BRM']),
+            new Card(2295, 'Volcanic Lumberer', $sets['BRM']),
 
-            ['number' => 2922, 'name' => 'Mounted Raptor', 'set' => 'LOE'],
-            ['number' => 2923, 'name' => 'Jungle Moonkin', 'set' => 'LOE'],
-            ['number' => 13335, 'name' => 'Raven Idol', 'set' => 'LOE'],
+            new Card(2780, 'Savage Combatant', $sets['TGT']),
+            new Card(2782, 'Darnassus Aspirant', $sets['TGT']),
+            new Card(2783, 'Druid of the Saber', $sets['TGT']),
+            new Card(2785, 'Astral Communion', $sets['TGT']),
+            new Card(2786, 'Wildwalker', $sets['TGT']),
+            new Card(2788, 'Knight of the Wild', $sets['TGT']),
+            new Card(2792, 'Living Roots', $sets['TGT']),
+            new Card(2793, 'Mulch', $sets['TGT']),
 
-            ['number' => 38334, 'name' => 'Feral Rage', 'set' => 'OG'],
-            ['number' => 38337, 'name' => 'Mark of Y\'Shaarj', 'set' => 'OG'],
-            ['number' => 38340, 'name' => 'Forbidden Ancient', 'set' => 'OG'],
-            ['number' => 38621, 'name' => 'Klaxxi Amber-Weaver', 'set' => 'OG'],
-            ['number' => 38655, 'name' => 'Wisps of the Old Gods', 'set' => 'OG'],
-            ['number' => 38718, 'name' => 'Mire Keeper', 'set' => 'OG'],
-            ['number' => 38882, 'name' => 'Dark Arakkoa', 'set' => 'OG'],
-            ['number' => 38916, 'name' => 'Addled Grizzly', 'set' => 'OG'],
+            new Card(2922, 'Mounted Raptor', $sets['LOE']),
+            new Card(2923, 'Jungle Moonkin', $sets['LOE']),
+            new Card(13335, 'Raven Idol', $sets['LOE']),
 
-            ['number' => 39350, 'name' => 'Enchanted Raven', 'set' => 'KARA'],
-            ['number' => 39696, 'name' => 'Menagerie Warden', 'set' => 'KARA'],
-            ['number' => 39714, 'name' => 'Moonglade Portal', 'set' => 'KARA'],
+            new Card(38334, 'Feral Rage', $sets['OG']),
+            new Card(38337, 'Mark of Y\'Shaarj', $sets['OG']),
+            new Card(38340, 'Forbidden Ancient', $sets['OG']),
+            new Card(38621, 'Klaxxi Amber-Weaver', $sets['OG']),
+            new Card(38655, 'Wisps of the Old Gods', $sets['OG']),
+            new Card(38718, 'Mire Keeper', $sets['OG']),
+            new Card(38882, 'Dark Arakkoa', $sets['OG']),
+            new Card(38916, 'Addled Grizzly', $sets['OG']),
 
-            ['number' => 40372, 'name' => 'Jade Idol', 'set' => 'GANGS'],
-            ['number' => 40397, 'name' => 'Mark of the Lotus', 'set' => 'GANGS'],
-            ['number' => 40401, 'name' => 'Pilfered Power', 'set' => 'GANGS'],
-            ['number' => 40404, 'name' => 'Celestial Dreamer', 'set' => 'GANGS'],
-            ['number' => 40523, 'name' => 'Jade Blossom', 'set' => 'GANGS'],
-            ['number' => 40615, 'name' => 'Lunar Visions', 'set' => 'GANGS'],
-            ['number' => 40641, 'name' => 'Virmen Sensei', 'set' => 'GANGS'],
-            ['number' => 40797, 'name' => 'Jade Behemoth', 'set' => 'GANGS'],
-        ]));
+            new Card(39350, 'Enchanted Raven', $sets['KARA']),
+            new Card(39696, 'Menagerie Warden', $sets['KARA']),
+            new Card(39714, 'Moonglade Portal', $sets['KARA']),
+
+            new Card(40372, 'Jade Idol', $sets['GANGS']),
+            new Card(40397, 'Mark of the Lotus', $sets['GANGS']),
+            new Card(40401, 'Pilfered Power', $sets['GANGS']),
+            new Card(40404, 'Celestial Dreamer', $sets['GANGS']),
+            new Card(40523, 'Jade Blossom', $sets['GANGS']),
+            new Card(40615, 'Lunar Visions', $sets['GANGS']),
+            new Card(40641, 'Virmen Sensei', $sets['GANGS']),
+            new Card(40797, 'Jade Behemoth', $sets['GANGS']),
+        ];
     }
 }

@@ -28,6 +28,11 @@ class Card
         return $this->set->getName();
     }
 
+    public function getSetCode(): string
+    {
+        return $this->set->getCode();
+    }
+
     public function isStandard(): bool
     {
         return $this->set->isStandard();

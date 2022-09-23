@@ -12,7 +12,7 @@ use OutOfBoundsException;
 class DecksFixtures implements FixturesLoaderInterface
 {
     public function __construct(
-        private readonly DeckRepository $deckRepository
+        private readonly DeckRepository $repository
     ) {
     }
 
@@ -24,11 +24,11 @@ class DecksFixtures implements FixturesLoaderInterface
     public function isNeeded(): bool
     {
         try {
-            $this->deckRepository->get('test');
+            $this->repository->get('test');
+            return false;
         } catch (OutOfBoundsException) {
             return true;
         }
-        return false;
     }
 
     public function load(): void
@@ -37,6 +37,6 @@ class DecksFixtures implements FixturesLoaderInterface
             return;
         }
 
-        $this->deckRepository->save(new Deck('test', 'Test deck'));
+        $this->repository->save(new Deck('test', 'Test deck'));
     }
 }

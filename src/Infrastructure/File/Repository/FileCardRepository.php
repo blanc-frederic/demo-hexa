@@ -12,7 +12,10 @@ use OutOfBoundsException;
 use UnexpectedValueException;
 
 use function Safe\file_get_contents;
+use function Safe\file_put_contents;
 use function Safe\json_decode;
+use function Safe\json_encode;
+use function Safe\mkdir;
 
 class FileCardRepository implements CardRepository, CardFinder
 {
@@ -37,6 +40,13 @@ class FileCardRepository implements CardRepository, CardFinder
         }
 
         return $this->cards[$number];
+    }
+
+    public function save(Card $card): void
+    {
+        $this->loadCards();
+        $this->cards[$card->getNumber()] = $card;
+        $this->saveCards();
     }
 
     /** @return Card[] */
@@ -70,5 +80,21 @@ class FileCardRepository implements CardRepository, CardFinder
                 );
             }
         }
+    }
+
+    private function saveCards(): void
+    {
+        if (! is_dir(dirname($this->filename))) {
+            mkdir(dirname($this->filename), 0755, true);
+        }
+
+        file_put_contents($this->filename, json_encode(array_map(
+            fn(Card $card) => [
+                'number' => $card->getNumber(),
+                'name' => $card->getName(),
+                'set' => $card->getSetCode(),
+            ],
+            array_values($this->cards)
+        )));
     }
 }
