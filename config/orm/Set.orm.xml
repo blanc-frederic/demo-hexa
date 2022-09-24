@@ -4,7 +4,7 @@
       xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Domain\Entity\Set" table="sets" repository-class="Infrastructure\Doctrine\SetRepository">
+    <entity name="Domain\Entity\Set" table="sets" repository-class="Infrastructure\Doctrine\DoctrineSetRepository">
 
         <id name="code" type="string" />
 

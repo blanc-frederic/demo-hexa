@@ -4,7 +4,7 @@
       xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Domain\Entity\Deck" table="decks" repository-class="Infrastructure\Doctrine\DeckRepository">
+    <entity name="Domain\Entity\Deck" table="decks" repository-class="Infrastructure\Doctrine\DoctrineDeckRepository">
 
         <id name="id" type="string" />
 

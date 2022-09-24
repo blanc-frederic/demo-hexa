@@ -4,7 +4,7 @@
       xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Domain\Entity\Card" table="cards" repository-class="Infrastructure\Doctrine\CardRepository">
+    <entity name="Domain\Entity\Card" table="cards" repository-class="Infrastructure\Doctrine\DoctrineCardRepository">
 
         <id name="number" type="integer">
             <options>
